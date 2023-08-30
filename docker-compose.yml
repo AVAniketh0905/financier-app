@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  calendar-db:
+    image: postgres
+    restart: always
+    container_name: ${DB_CONTAINER_NAME}
+    ports:
+      - 5432:${DB_PORT}
+    environment:
+      PGDATA: /data/postgres
+      DB_CONTAINER_NAME: calendar-postgres
+      DB_PORT: 5432
+      DB_PASSWORD: mysecretpassword
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_PRISMA_URL: 'postgresql://postgres:${DB_PASSWORD}@localhost:${DB_PORT}/postgres'
+    volumes:
+      - postgres:/data/postgres
+
+volumes:
+  postgres:
